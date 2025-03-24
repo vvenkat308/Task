@@ -21,6 +21,7 @@ Lombok (to reduce boilerplate code)
 
 JWT (jjwt) (for authentication)
 
+
 2️⃣ Configure Database & Application Properties
 Inside src/main/resources/application.properties, configure your database connection:
 
@@ -39,6 +40,7 @@ spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
+
 3️⃣ Create Models (Entities)
 Inside src/main/java/com/example/taskmanagement/models/, define an entity:
 
@@ -57,6 +59,7 @@ public class Task {
     private String description;
     private String status;
 }
+
 4️⃣ Implement JWT Authentication
 Create a JwtUtil class inside src/main/java/com/example/taskmanagement/security/:
 
@@ -84,6 +87,7 @@ public class JwtUtil {
         return extractUsername(token).equals(userDetails.getUsername());
     }
 }
+
 5️⃣ Build RESTful API Controllers
 Inside src/main/java/com/example/taskmanagement/controllers/, create TaskController.java:
 
@@ -106,6 +110,8 @@ public class TaskController {
         return ResponseEntity.ok(taskService.getTaskById(id));
     }
 }
+
+
 6️⃣ CI/CD Pipeline with Jenkins
 Create a Jenkinsfile for automation:
 
@@ -133,6 +139,7 @@ pipeline {
         }
     }
 }
+
 7️⃣ Dockerize the Application
 Create a Dockerfile:
 
@@ -144,12 +151,10 @@ WORKDIR /app
 COPY target/task-management.jar task-management.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "task-management.jar"]
+
+
 8️⃣ Deploy to Kubernetes
 Create deployment.yaml for Kubernetes:
-
-yaml
-Copy
-Edit
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -182,7 +187,7 @@ spec:
       port: 80
       targetPort: 8080
   type: LoadBalancer
-✅ Summary
+
 This guide includes:
 
 Spring Boot setup with JWT-based authentication.
